@@ -4,6 +4,8 @@ export {
   configure,
   getAuthenticatedHttpClient,
   getHttpClient,
+  getCachedAuthenticatedHttpClient,
+  getCachedHttpClient,
   getLoginRedirectUrl,
   redirectToLogin,
   getLogoutRedirectUrl,

@@ -73,6 +73,8 @@ const optionsShape = {
 const serviceShape = {
   getAuthenticatedHttpClient: PropTypes.func.isRequired,
   getHttpClient: PropTypes.func.isRequired,
+  getCachedAuthenticatedHttpClient: PropTypes.func.isRequired,
+  getCachedHttpClient: PropTypes.func.isRequired,
   getLoginRedirectUrl: PropTypes.func.isRequired,
   redirectToLogin: PropTypes.func.isRequired,
   getLogoutRedirectUrl: PropTypes.func.isRequired,
@@ -135,6 +137,24 @@ export function getAuthenticatedHttpClient() {
  */
 export function getHttpClient() {
   return service.getHttpClient();
+}
+
+/**
+ * Gets the authenticated HTTP client for the service.
+ *
+ * @returns {HttpClient}
+ */
+export function getCachedAuthenticatedHttpClient() {
+  return service.getCachedAuthenticatedHttpClient();
+}
+
+/**
+ * Gets the unauthenticated HTTP client for the service.
+ *
+ * @returns {HttpClient}
+ */
+export function getCachedHttpClient() {
+  return service.getCachedHttpClient();
 }
 
 /**

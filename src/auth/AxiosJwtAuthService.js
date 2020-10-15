@@ -7,6 +7,7 @@ import createCsrfTokenProviderInterceptor from './interceptors/createCsrfTokenPr
 import createProcessAxiosRequestErrorInterceptor from './interceptors/createProcessAxiosRequestErrorInterceptor';
 import AxiosJwtTokenService from './AxiosJwtTokenService';
 import AxiosCsrfTokenService from './AxiosCsrfTokenService';
+import configureCache from './LocalForageCache';
 
 const optionsPropTypes = {
   config: PropTypes.shape({
@@ -44,6 +45,8 @@ class AxiosJwtAuthService {
   constructor(options) {
     this.authenticatedHttpClient = null;
     this.httpClient = null;
+    this.cachedAuthenticatedHttpClient = null;
+    this.cachedHttpClient = null;
     this.authenticatedUser = null;
 
     ensureDefinedConfig(options, 'AuthService');
@@ -59,6 +62,10 @@ class AxiosJwtAuthService {
     this.csrfTokenService = new AxiosCsrfTokenService(this.config.CSRF_TOKEN_API_PATH);
     this.authenticatedHttpClient = this.addAuthenticationToHttpClient(axios.create());
     this.httpClient = axios.create();
+    configureCache().then((cache) => {
+      this.cachedAuthenticatedHttpClient = this.addAuthenticationToHttpClient(axios.create({adapter: cache.adapter}));
+      this.cachedHttpClient = axios.create({adapter: cache.adapter});
+    })
   }
 
   /**
@@ -78,6 +85,25 @@ class AxiosJwtAuthService {
    */
   getHttpClient() {
     return this.httpClient;
+  }
+
+  /**
+   * Gets the authenticated HTTP client for the service.  This is an axios instance.
+   *
+   * @returns {HttpClient} A configured axios http client which can be used for authenticated
+   * requests.
+   */
+  getCachedAuthenticatedHttpClient() {
+    return this.cachedAuthenticatedHttpClient;
+  }
+
+  /**
+   * Gets the unauthenticated HTTP client for the service.  This is an axios instance.
+   *
+   * @returns {HttpClient} A configured axios http client.
+   */
+  getCachedHttpClient() {
+    return this.cachedHttpClient;
   }
 
   /**
