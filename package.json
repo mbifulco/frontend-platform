@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@cospired/i18n-iso-languages": "2.1.2",
-    "axios": "0.18.1",
+    "axios": "0.20.0",
     "form-urlencoded": "4.1.4",
     "glob": "7.1.6",
     "history": "4.10.1",
