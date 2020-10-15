@@ -31,8 +31,8 @@
   },
   "homepage": "https://github.com/edx/frontend-platform#readme",
   "devDependencies": {
-    "@commitlint/cli": "8.2.0",
-    "@commitlint/config-angular": "8.2.0",
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-angular": "11.0.0",
     "@edx/frontend-build": "2.0.6",
     "@edx/paragon": "7.1.5",
     "axios-mock-adapter": "1.17.0",
